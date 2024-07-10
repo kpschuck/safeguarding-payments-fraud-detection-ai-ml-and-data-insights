@@ -50,14 +50,14 @@ resource "aws_eks_identity_provider_config" "this" {
 
 resource "aws_eks_access_entry" "this" {
   cluster_name      = aws_eks_cluster.this.name
-  principal_arn     = format("arn:aws:iam::%s:role/Admin", data.aws_caller_identity.this.account_id)
+  principal_arn     = format("arn:aws:iam::%s:role/admin", data.aws_caller_identity.this.account_id)
   kubernetes_groups = var.q.groups != "" ? split(",", var.q.groups) : null
   type              = var.q.entry_type
 }
 
 resource "aws_eks_access_policy_association" "this" {
   cluster_name  = aws_eks_cluster.this.name
-  principal_arn = format("arn:aws:iam::%s:role/Admin", data.aws_caller_identity.this.account_id)
+  principal_arn = format("arn:aws:iam::%s:role/admin", data.aws_caller_identity.this.account_id)
   policy_arn    = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
 
   access_scope {
